@@ -11,10 +11,13 @@ namespace SignalRChat.Consumer.StockVerifierGateway.Service
     public class StockService
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
 
-        public StockService(IHttpClientFactory httpClientFactory)
+        public StockService(IHttpClientFactory httpClientFactory,
+                            IConfiguration configuration)
         {
             _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
         }
 
         public async Task<StockCsvDto> GetStock(string stockCode, string caller)
@@ -47,8 +50,8 @@ namespace SignalRChat.Consumer.StockVerifierGateway.Service
         {
             try
             {
-                string queueName = "stock-queue";
-                string connectionString = "amqp://user:password@localhost:5672/jobsity_host";
+                string connectionString = _configuration["Rabbit:ConnectionString"];
+                string queueName = _configuration["Rabbit:StockQueue"];
                 var message = new { StockCode = stockMessage.StockCode, StockValue = stockMessage.StockValue, Caller = stockMessage.Caller };
                 var factory = new ConnectionFactory()
                 {
