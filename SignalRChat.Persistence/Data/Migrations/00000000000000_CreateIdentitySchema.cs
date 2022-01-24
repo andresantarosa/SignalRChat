@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace SignalRChat.UI.Data.Migrations
+namespace SignalRChat.Persistence.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat.UI", "SignalRChat.UI\SignalRChat.UI.csproj", "{EE661C0C-8BB1-4DE1-89AA-AF0C2183442C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat.Persistence", "SignalRChat.Persistence\SignalRChat.Persistence.csproj", "{A4D799FA-C443-4595-BD70-B96CCBA2BCB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat.IoC", "SignalRChat.IoC\SignalRChat.IoC.csproj", "{5DB768C6-4A00-43A6-ABEB-D38338D77030}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{EE661C0C-8BB1-4DE1-89AA-AF0C2183442C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE661C0C-8BB1-4DE1-89AA-AF0C2183442C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE661C0C-8BB1-4DE1-89AA-AF0C2183442C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4D799FA-C443-4595-BD70-B96CCBA2BCB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4D799FA-C443-4595-BD70-B96CCBA2BCB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4D799FA-C443-4595-BD70-B96CCBA2BCB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4D799FA-C443-4595-BD70-B96CCBA2BCB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DB768C6-4A00-43A6-ABEB-D38338D77030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DB768C6-4A00-43A6-ABEB-D38338D77030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DB768C6-4A00-43A6-ABEB-D38338D77030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DB768C6-4A00-43A6-ABEB-D38338D77030}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

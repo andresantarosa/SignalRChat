@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SignalRChat.Persistence.Data;
 
-namespace SignalRChat.UI.Data
+namespace SignalRChat.Persistence.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
