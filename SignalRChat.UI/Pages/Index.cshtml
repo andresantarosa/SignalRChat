@@ -1,10 +1,57 @@
 ﻿@page
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="row">
+        <div class="col-3" style="background-color:#fafafa">
+            <span>Logged Users</span>
+            <ul id="loggedUsers"></ul>
+        </div>
+        <div class="col-9">
+            <div id="messagesList"></div>
+        </div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-12"><textarea type="text" class="form-control" id="messageInput"></textarea></div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">
+            <input type="button" class="btn btn-success" id="sendButton" value="Send Message" />
+        </div>
+    </div>
 </div>
+<div class="row">
+    <div class="col-12">
+        <hr />
+    </div>
+</div>
+
+<style>
+    .chat-entry {
+        display: flex;
+        flex-direction: column;
+        max-width: 50%;
+        width: fit-content;
+        background-color: #e4efff;
+        padding: 8px;
+        border-radius: 3px;
+        margin-bottom:10px;
+    }
+
+        .chat-entry > .user {
+            font-weight: 700;
+            padding-bottom: 5px;
+            font-size: 13px;
+        }
+
+        #messagesList{
+            height:400px;
+            overflow-y:scroll;
+            overflow-x:hidden;
+        }
+</style>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/aspnet/signalr/dist/browser/signalr.min.js"></script>
+<script src="~/js/chat.js"></script>

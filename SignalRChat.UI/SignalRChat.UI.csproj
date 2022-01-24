@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SignalRChat.Domain\SignalRChat.Domain.csproj" />
     <ProjectReference Include="..\SignalRChat.IoC\SignalRChat.IoC.csproj" />
   </ItemGroup>
 

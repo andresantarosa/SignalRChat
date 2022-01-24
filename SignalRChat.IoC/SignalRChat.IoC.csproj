@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SignalRChat.Domain\SignalRChat.Domain.csproj" />
     <ProjectReference Include="..\SignalRChat.Persistence\SignalRChat.Persistence.csproj" />
+    <ProjectReference Include="..\SignalRChat.Service\SignalRChat.Service.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SignalRChat.IoC;
+using SignalRChat.UI.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,5 +33,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapHub<Chat>("/chatHub");
 
 app.Run();

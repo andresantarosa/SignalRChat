@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SignalRChat.Domain.Interfaces.Services.Chat;
 using SignalRChat.Persistence.Data;
+using SignalRChat.Service.Chat;
 
 namespace SignalRChat.IoC
 {
@@ -16,7 +18,15 @@ namespace SignalRChat.IoC
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddRazorPages();
+
+            services.AddSingleton<IChatUsersService, ChatUsersService>();
+
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AuthorizePage("/Index");
+            });
+            services.AddSignalR();
         }
+
     }
 }
