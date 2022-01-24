@@ -2,8 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SignalRChat.Domain.Interfaces.Persistence.Repository;
+using SignalRChat.Domain.Interfaces.Persistence.UoW;
 using SignalRChat.Domain.Interfaces.Services.Chat;
 using SignalRChat.Persistence.Data;
+using SignalRChat.Persistence.Repository;
+using SignalRChat.Persistence.UoW;
 using SignalRChat.Service.Chat;
 
 namespace SignalRChat.IoC
@@ -20,6 +24,10 @@ namespace SignalRChat.IoC
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddSingleton<IChatUsersService, ChatUsersService>();
+            services.AddScoped<IChatService, ChatService>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IChatConfigurationService, ChatConfigurationService>();
 
             services.AddRazorPages(options =>

@@ -23,7 +23,5 @@ namespace SignalRChat.Service.Chat
             var limit = _configuration["ChatConfiguration:MaxAllowedMessage"];
             return Convert.ToInt32(limit);
         }
-
-         
     }
 }

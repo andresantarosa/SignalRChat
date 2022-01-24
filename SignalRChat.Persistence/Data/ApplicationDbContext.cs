@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SignalRChat.Persistence.Data;
+using SignalRChat.Domain.Entities;
+using SignalRChat.Persistence.Config;
 
 namespace SignalRChat.Persistence.Data
 {
@@ -9,6 +10,14 @@ namespace SignalRChat.Persistence.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+        }
+
+        public Post Post { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfiguration(new PostConfiguration());
+            base.OnModelCreating(builder);
         }
     }
 }
