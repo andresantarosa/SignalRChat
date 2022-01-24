@@ -9,9 +9,12 @@ namespace SignalRChat.UI.Hubs
     public class Chat : Hub
     {
         private readonly IChatUsersService _chatUsersService;
-        public Chat(IChatUsersService chatUsersService)
+        private readonly IChatConfigurationService _configuration;
+        public Chat(IChatUsersService chatUsersService,
+                    IChatConfigurationService configuration)
         {
             _chatUsersService = chatUsersService;
+            _configuration = configuration;
             
         }
 
@@ -22,6 +25,7 @@ namespace SignalRChat.UI.Hubs
             ChatActiveUserDto chatActiveUserDto = new ChatActiveUserDto(connectionId, email);
             _chatUsersService.AddUser(chatActiveUserDto);
             await SetUsers();
+            await SetMessageLimit();
         }
 
         public override async Task OnDisconnectedAsync(Exception? exception)
@@ -37,6 +41,13 @@ namespace SignalRChat.UI.Hubs
 
         private async Task SetUsers() =>
             await Clients.All.SendCoreAsync("SetUsers",GetArray(_chatUsersService.ChatUsers.Select(x => x.Email).ToArray()));
+
+        private async Task SetMessageLimit()
+        {
+            int messageLimit = _configuration.GetMessageLimit() ;
+            await Clients.All.SendCoreAsync("SetMessageLimit", GetArray(messageLimit));
+
+        }
 
         private object[] GetArray(string[] obj)
         {

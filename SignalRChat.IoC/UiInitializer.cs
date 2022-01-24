@@ -20,6 +20,7 @@ namespace SignalRChat.IoC
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddSingleton<IChatUsersService, ChatUsersService>();
+            services.AddScoped<IChatConfigurationService, ChatConfigurationService>();
 
             services.AddRazorPages(options =>
             {

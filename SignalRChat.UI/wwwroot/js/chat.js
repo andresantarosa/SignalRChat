@@ -1,6 +1,9 @@
 ﻿$(document).ready(function () {
     var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
+    var messageCount = 0;
+    var messageLimit = 0;
+
     $("#sendButton").disabled = true;
 
     connection.on("SetUsers", function (usersList) {
@@ -10,6 +13,10 @@
         })
     })
 
+    connection.on("SetMessageLimit", function (limit) {
+        messageLimit = limit;
+    })
+
     connection.start().then(function () {
         $("#sendButton").disabled = false;
     }).catch(function (err) {
@@ -17,7 +24,12 @@
     });
 
     connection.on("ReceiveMessage", function (user, message) {
+        messageCount++;
+
         setMessage(user, message);
+
+        if (messageCount > messageLimit)
+            $("#messagesList > .chat-entry").first().remove();
     });
 
     $(document).on("click", "#sendButton" ,function (event) {
