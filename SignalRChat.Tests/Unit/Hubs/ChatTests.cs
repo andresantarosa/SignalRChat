@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using SignalRChat.Domain.Dto;
+using SignalRChat.Domain.Entities;
+using SignalRChat.Domain.Interfaces.Persistence.UoW;
 using SignalRChat.Domain.Interfaces.Services.Chat;
 using SignalRChat.Tests.Base;
 using SignalRChat.UI.Hubs;
@@ -23,9 +25,8 @@ namespace SignalRChat.Tests.Unit.Hubs
         private string _messageLimit = "SetMessageLimit";
 
         [Fact]
-        public async Task SendMessage_WithValidText_ShouldSendMessage()
+        public async Task SendMessage_WithGenericMessage_ShouldSendMessage()
         {
-
             // Arrange
             var name = "andre@andre.com";
             var message = "myMessage";
@@ -41,6 +42,14 @@ namespace SignalRChat.Tests.Unit.Hubs
 
             mockClients.Setup(clients => clients.All).Returns(mockClientProxy.Object);
             mockContext.Setup(x => x.User).Returns(user);
+            Mocker.GetMock<IChatService>()
+                .Setup(x => x.SaveMessage(It.IsAny<Post>()))
+                .ReturnsAsync((true,null));
+
+            Mocker.GetMock<IUnitOfWork>()
+                .Setup(x => x.Save())
+                .ReturnsAsync((true, null));
+
             chatHub.Context = mockContext.Object;
             chatHub.Clients = mockClients.Object;
 
@@ -49,6 +58,8 @@ namespace SignalRChat.Tests.Unit.Hubs
 
             // Assert
             mockClients.Verify(clients => clients.All, Times.Once);
+            Mocker.GetMock<IChatService>().Verify(x => x.SaveMessage(It.IsAny<Post>()), Times.Once);
+            Mocker.GetMock<IUnitOfWork>().Verify(x => x.Save(), Times.Once);
 
             mockClientProxy.Verify(
                clientProxy => clientProxy.SendCoreAsync(
@@ -59,6 +70,33 @@ namespace SignalRChat.Tests.Unit.Hubs
                                    && callParams[1].ToString() == message),
                    default(CancellationToken)),
                Times.Once);
+        }
+
+        [Fact]
+        public async Task SendMessage_WithValidText_ShouldSendMessage()
+        {
+
+            // Arrange
+            var message = "/stock=aapl.us";
+            var connectionId = "Connection";
+            var mockContext = new Mock<HubCallerContext>();
+            var mockClients = new Mock<IHubCallerClients>();
+            var mockClientProxy = new Mock<IClientProxy>();
+            var chatHub = Mocker.CreateInstance<Chat>();
+
+         
+
+            mockClients.Setup(clients => clients.All).Returns(mockClientProxy.Object);
+            mockContext.Setup(x => x.ConnectionId).Returns(connectionId);
+            chatHub.Context = mockContext.Object;
+            chatHub.Clients = mockClients.Object;
+
+            // Act
+            await chatHub.SendMessage(message);
+
+            // Assert
+            mockClients.Verify(clients => clients.All, Times.Never);
+            Mocker.GetMock<IChatService>().Verify(x => x.GetQuotation("aapl.us", connectionId), Times.Once);
         }
 
         [Fact]

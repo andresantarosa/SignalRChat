@@ -42,6 +42,14 @@ namespace SignalRChat.UI.Hubs
 
         public async Task SendMessage(string message)
         {
+
+            if (message.StartsWith("/stock="))
+            {
+                var stockCode = message.Replace("/stock=", "");
+                await _chatService.GetQuotation(stockCode, Context.ConnectionId);
+                return;
+            }
+
             var user = Context.User.Identity.Name;
             if (!await SavePost(message, user))
                 return;

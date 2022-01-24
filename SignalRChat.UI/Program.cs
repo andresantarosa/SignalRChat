@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SignalRChat.IoC;
+using SignalRChat.UI.BackgroundServices;
 using SignalRChat.UI.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-new UiInitializer().Initialize(builder.Services, builder.Configuration);
+new UiInitializer(builder.Services).Initialize(builder.Configuration)
+                                   .StartConsumer<StockConsumer>();      
 
 var app = builder.Build();
 

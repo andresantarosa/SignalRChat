@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat.UI", "SignalRChat.UI\SignalRChat.UI.csproj", "{EE661C0C-8BB1-4DE1-89AA-AF0C2183442C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRChat.UI", "SignalRChat.UI\SignalRChat.UI.csproj", "{EE661C0C-8BB1-4DE1-89AA-AF0C2183442C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat.Persistence", "SignalRChat.Persistence\SignalRChat.Persistence.csproj", "{A4D799FA-C443-4595-BD70-B96CCBA2BCB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRChat.Persistence", "SignalRChat.Persistence\SignalRChat.Persistence.csproj", "{A4D799FA-C443-4595-BD70-B96CCBA2BCB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat.IoC", "SignalRChat.IoC\SignalRChat.IoC.csproj", "{5DB768C6-4A00-43A6-ABEB-D38338D77030}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRChat.IoC", "SignalRChat.IoC\SignalRChat.IoC.csproj", "{5DB768C6-4A00-43A6-ABEB-D38338D77030}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat.Service", "SignalRChat.Service\SignalRChat.Service.csproj", "{5946669B-B399-43DE-BEF6-352B6FAB4F43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRChat.Service", "SignalRChat.Service\SignalRChat.Service.csproj", "{5946669B-B399-43DE-BEF6-352B6FAB4F43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat.Domain", "SignalRChat.Domain\SignalRChat.Domain.csproj", "{1CD0B78E-DDE1-40B5-91F7-12ECB9E0C8C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRChat.Domain", "SignalRChat.Domain\SignalRChat.Domain.csproj", "{1CD0B78E-DDE1-40B5-91F7-12ECB9E0C8C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat.Tests", "SignalRChat.Tests\SignalRChat.Tests.csproj", "{103DC757-6ABF-43C6-9561-707C2A64A952}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRChat.Tests", "SignalRChat.Tests\SignalRChat.Tests.csproj", "{103DC757-6ABF-43C6-9561-707C2A64A952}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Presentation", "01 - Presentation", "{DBEDB1A4-0DA0-4693-809B-27B96CE85EDC}"
 EndProject
@@ -22,6 +22,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Service", "02 - Service", "{87F10697-FF51-4A9C-9667-86DDFB206DAB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - Domain", "04 - Domain", "{15598AAC-563D-4A39-8357-D98C416A8568}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{A3CEEE44-2D79-434C-BA57-2056A3E4ADCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat.Consumer.StockVerifierGateway", "SignalRChat.Consumer.StockVerifierGateway\SignalRChat.Consumer.StockVerifierGateway.csproj", "{D2CF8A21-3065-4B21-869B-0CE779E37F17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +57,10 @@ Global
 		{103DC757-6ABF-43C6-9561-707C2A64A952}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{103DC757-6ABF-43C6-9561-707C2A64A952}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{103DC757-6ABF-43C6-9561-707C2A64A952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2CF8A21-3065-4B21-869B-0CE779E37F17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2CF8A21-3065-4B21-869B-0CE779E37F17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2CF8A21-3065-4B21-869B-0CE779E37F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2CF8A21-3065-4B21-869B-0CE779E37F17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +71,7 @@ Global
 		{5DB768C6-4A00-43A6-ABEB-D38338D77030} = {D0FE6B0C-86C9-40DF-A3A7-1A35B39D79CC}
 		{5946669B-B399-43DE-BEF6-352B6FAB4F43} = {87F10697-FF51-4A9C-9667-86DDFB206DAB}
 		{1CD0B78E-DDE1-40B5-91F7-12ECB9E0C8C1} = {15598AAC-563D-4A39-8357-D98C416A8568}
+		{D2CF8A21-3065-4B21-869B-0CE779E37F17} = {A3CEEE44-2D79-434C-BA57-2056A3E4ADCC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {20CDD8B3-F26D-4971-B91F-A1245A607D18}
