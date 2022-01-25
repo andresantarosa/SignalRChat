@@ -31,8 +31,3 @@ app.MapGet("/GetStock/{stockCode}/{caller}", async (StockService stockService, s
 .Produces(200)
 .Produces(400);
 app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -16,6 +16,10 @@ RUN dotnet build "SignalRChat.UI.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "SignalRChat.UI.csproj" -c Release -o /app/publish
 
+FROM base as final
+WORKDIR /app
+RUN Scripts/wait-for-it.sh rabbitmq:1433 -t 120
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .

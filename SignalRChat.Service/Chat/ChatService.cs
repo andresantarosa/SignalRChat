@@ -39,6 +39,9 @@ namespace SignalRChat.Service.Chat
         public async Task<bool> GetQuotation(string stockCode, string caller)
         {
             var client = _httpClientFactory.CreateClient("StockGateway");
+            Console.WriteLine("===============================");
+            Console.WriteLine(client.BaseAddress);
+            Console.WriteLine("===============================");
             var response = await client.GetAsync($"/GetStock/{stockCode}/{caller}");
             return response.IsSuccessStatusCode;
         }
