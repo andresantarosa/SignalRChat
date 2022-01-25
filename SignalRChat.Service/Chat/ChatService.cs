@@ -1,7 +1,13 @@
-﻿using SignalRChat.Domain.Entities;
+﻿using Microsoft.Extensions.Configuration;
+using RabbitMQ.Client;
+using SignalRChat.Domain.Dto;
+using SignalRChat.Domain.Entities;
+using SignalRChat.Domain.Interfaces.Infra.Messaging;
 using SignalRChat.Domain.Interfaces.Persistence.Repository;
 using SignalRChat.Domain.Interfaces.Services.Chat;
 using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 
 namespace SignalRChat.Service.Chat
 {
@@ -11,14 +17,20 @@ namespace SignalRChat.Service.Chat
     {
         private readonly IPostRepository _postRepository;
         private readonly IHttpClientFactory _httpClientFactory;
-
-        public ChatService(IPostRepository postRepository, IHttpClientFactory httpClientFactory)
+        private readonly IConfiguration _configuration;
+        private readonly IMessaging _messaging;
+        public ChatService(IPostRepository postRepository,
+                           IHttpClientFactory httpClientFactory,
+                           IConfiguration configuration,
+                           IMessaging messaging)
         {
             _postRepository = postRepository;
             _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
+            _messaging = messaging;
         }
 
-        public async Task<(bool success, string errors)> SaveMessage(Post post)
+        public (bool success, string errors) EnqueueChatMessageToBeSaved(Post post)
         {
             if (post == null)
                 return (false, "Post cannot be null");
@@ -32,7 +44,8 @@ namespace SignalRChat.Service.Chat
             if (post.PostContent.Length > 1000)
                 return (false, "Post maximum lenght is 1000 chars");
 
-            await _postRepository.Add(post);
+            _messaging.Enqueue<Post>("SaveChatMessageQueue", post);
+
             return (true, null);
         }
 
@@ -45,5 +58,6 @@ namespace SignalRChat.Service.Chat
             var response = await client.GetAsync($"/GetStock/{stockCode}/{caller}");
             return response.IsSuccessStatusCode;
         }
+
     }
 }

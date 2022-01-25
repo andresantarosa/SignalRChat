@@ -84,9 +84,8 @@ namespace SignalRChat.UI.Hubs
                 PostOwner = user,
             };
 
-            var savePostResponse = await _chatService.SaveMessage(post);
-            var unitOfWorkSave = await _unitOfWork.Save();
-            if(savePostResponse.success == false || unitOfWorkSave.success == false)
+            var savePostResponse = _chatService.EnqueueChatMessageToBeSaved(post);
+            if(savePostResponse.success == false)
                 return false;
                 
             return true;

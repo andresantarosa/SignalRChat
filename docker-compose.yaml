@@ -58,6 +58,16 @@ services:
     depends_on:
       - sqlserver
       - rabbit_mq
+  message_insert_consumer:
+    container_name: message_insert_consumer
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    build:
+      context: .
+      dockerfile: ./SignalRChat.Consumer.SaveMessageConsumer/Dockerfile
+    depends_on:
+      - sqlserver
+      - rabbit_mq
   
   
     

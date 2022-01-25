@@ -50,8 +50,10 @@ namespace SignalRChat.Consumer.StockVerifierGateway.Service
         {
             try
             {
-                string connectionString = _configuration["Rabbit:ConnectionString"];
-                string queueName = _configuration["Rabbit:StockQueue"];
+                var connectionString = _configuration["Rabbit:StockQueue:ConnectionString"];
+                var queueName = _configuration["Rabbit:StockQueue:QueueName"];
+                var durable = Convert.ToBoolean(_configuration["Rabbit:StockQueue:Durable"]);
+
                 var message = new { StockCode = stockMessage.StockCode, StockValue = stockMessage.StockValue, Caller = stockMessage.Caller };
                 var factory = new ConnectionFactory()
                 {
@@ -61,7 +63,7 @@ namespace SignalRChat.Consumer.StockVerifierGateway.Service
                 using var channel = connection.CreateModel();
 
                 channel.QueueDeclare(queue: queueName,
-                                     durable: false,
+                                     durable: durable,
                                      exclusive: false,
                                      autoDelete: false,
                                      arguments: null);

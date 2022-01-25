@@ -5,7 +5,7 @@ namespace SignalRChat.Domain.Interfaces.Services.Chat
 {
     public interface IChatService
     {
-        Task<(bool success, string errors)> SaveMessage(Post post);
+        (bool success, string errors) EnqueueChatMessageToBeSaved(Post post);
         Task<bool> GetQuotation(string stockCode, string caller);
     }
 }

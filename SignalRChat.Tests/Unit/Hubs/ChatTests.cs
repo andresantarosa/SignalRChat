@@ -43,12 +43,8 @@ namespace SignalRChat.Tests.Unit.Hubs
             mockClients.Setup(clients => clients.All).Returns(mockClientProxy.Object);
             mockContext.Setup(x => x.User).Returns(user);
             Mocker.GetMock<IChatService>()
-                .Setup(x => x.SaveMessage(It.IsAny<Post>()))
-                .ReturnsAsync((true,null));
-
-            Mocker.GetMock<IUnitOfWork>()
-                .Setup(x => x.Save())
-                .ReturnsAsync((true, null));
+                .Setup(x => x.EnqueueChatMessageToBeSaved(It.IsAny<Post>()))
+                .Returns((true,null));
 
             chatHub.Context = mockContext.Object;
             chatHub.Clients = mockClients.Object;
@@ -58,8 +54,7 @@ namespace SignalRChat.Tests.Unit.Hubs
 
             // Assert
             mockClients.Verify(clients => clients.All, Times.Once);
-            Mocker.GetMock<IChatService>().Verify(x => x.SaveMessage(It.IsAny<Post>()), Times.Once);
-            Mocker.GetMock<IUnitOfWork>().Verify(x => x.Save(), Times.Once);
+            Mocker.GetMock<IChatService>().Verify(x => x.EnqueueChatMessageToBeSaved(It.IsAny<Post>()), Times.Once);
 
             mockClientProxy.Verify(
                clientProxy => clientProxy.SendCoreAsync(

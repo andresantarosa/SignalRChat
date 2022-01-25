@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using SignalRChat.Domain.Dto;
 using SignalRChat.Domain.Dto.External;
 using SignalRChat.UI.Hubs;
 using System.Text;
@@ -22,8 +23,10 @@ namespace SignalRChat.UI.BackgroundServices
 
         protected async override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            string connectionString = _configuration["Rabbit:ConnectionString"];
-            string queue = _configuration["Rabbit:StockQueue"];
+            var connectionString = _configuration["Rabbit:StockQueue:ConnectionString"];
+            var queueName = _configuration["Rabbit:StockQueue:QueueName"];
+            var durable = Convert.ToBoolean(_configuration["Rabbit:StockQueue:Durable"]);
+
             var factory = new ConnectionFactory()
             {
                 Uri = new Uri(connectionString),
@@ -32,15 +35,15 @@ namespace SignalRChat.UI.BackgroundServices
             var connection = factory.CreateConnection();
             var channel = connection.CreateModel();
 
-            channel.QueueDeclare(queue: queue,
-                                durable: false,
+            channel.QueueDeclare(queue: queueName,
+                                durable: durable,
                                 exclusive: false,
                                 autoDelete: false,
                                 arguments: null);
 
             var consumer = new AsyncEventingBasicConsumer(channel);
             consumer.Received += HandleMessage;
-            channel.BasicConsume(queue: queue,
+            channel.BasicConsume(queue: queueName,
                 autoAck: true,
                 consumer: consumer);
         }

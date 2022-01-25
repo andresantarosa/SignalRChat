@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SignalRChat.Domain.Interfaces.Infra.Messaging;
 using SignalRChat.Domain.Interfaces.Persistence.Repository;
 using SignalRChat.Domain.Interfaces.Persistence.UoW;
 using SignalRChat.Domain.Interfaces.Services.Chat;
+using SignalRChat.Infrastructure;
 using SignalRChat.Persistence.Data;
 using SignalRChat.Persistence.Repository;
 using SignalRChat.Persistence.UoW;
@@ -36,6 +38,7 @@ namespace SignalRChat.IoC
 
             _services.AddScoped<IUnitOfWork, UnitOfWork>();
             _services.AddScoped<IPostRepository, PostRepository>();
+            _services.AddScoped<IMessaging, Messaging>();
             _services.AddSingleton<IChatConfigurationService, ChatConfigurationService>();
 
             _services.AddRazorPages(options =>

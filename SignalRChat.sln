@@ -32,6 +32,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat.Infrastructure", "SignalRChat.Infrastructure\SignalRChat.Infrastructure.csproj", "{90DC3C36-68C1-4189-87DD-8989D7475921}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat.Consumer.SaveMessageConsumer", "SignalRChat.Consumer.SaveMessageConsumer\SignalRChat.Consumer.SaveMessageConsumer.csproj", "{7716CC78-5978-4BD3-9C43-89DB40F01D8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +70,14 @@ Global
 		{D2CF8A21-3065-4B21-869B-0CE779E37F17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2CF8A21-3065-4B21-869B-0CE779E37F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2CF8A21-3065-4B21-869B-0CE779E37F17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90DC3C36-68C1-4189-87DD-8989D7475921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90DC3C36-68C1-4189-87DD-8989D7475921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90DC3C36-68C1-4189-87DD-8989D7475921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90DC3C36-68C1-4189-87DD-8989D7475921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7716CC78-5978-4BD3-9C43-89DB40F01D8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7716CC78-5978-4BD3-9C43-89DB40F01D8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7716CC78-5978-4BD3-9C43-89DB40F01D8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7716CC78-5978-4BD3-9C43-89DB40F01D8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,6 +89,8 @@ Global
 		{5946669B-B399-43DE-BEF6-352B6FAB4F43} = {87F10697-FF51-4A9C-9667-86DDFB206DAB}
 		{1CD0B78E-DDE1-40B5-91F7-12ECB9E0C8C1} = {15598AAC-563D-4A39-8357-D98C416A8568}
 		{D2CF8A21-3065-4B21-869B-0CE779E37F17} = {A3CEEE44-2D79-434C-BA57-2056A3E4ADCC}
+		{90DC3C36-68C1-4189-87DD-8989D7475921} = {D0FE6B0C-86C9-40DF-A3A7-1A35B39D79CC}
+		{7716CC78-5978-4BD3-9C43-89DB40F01D8C} = {A3CEEE44-2D79-434C-BA57-2056A3E4ADCC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {20CDD8B3-F26D-4971-B91F-A1245A607D18}
