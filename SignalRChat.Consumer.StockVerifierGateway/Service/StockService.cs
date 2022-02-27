@@ -23,7 +23,9 @@ namespace SignalRChat.Consumer.StockVerifierGateway.Service
         public async Task<StockCsvDto> GetStock(string stockCode, string caller)
         {
             var httpClient = _httpClientFactory.CreateClient();
-            using (var stream = await httpClient.GetStreamAsync($"https://stooq.com/q/l/?s={stockCode}&f=sd2t2ohlcv&h&e=csv"))
+            var stockBaseUrl = _configuration["Urls:Stock"];
+            var stockUrl = string.Format(stockBaseUrl, stockCode);
+            using (var stream = await httpClient.GetStreamAsync(stockUrl))
             {
                 StreamReader reader = new StreamReader(stream);
                 string text = reader.ReadToEnd();
@@ -48,36 +50,28 @@ namespace SignalRChat.Consumer.StockVerifierGateway.Service
 
         private void SendToRabbit(StockMessageDto stockMessage)
         {
-            try
+            var connectionString = _configuration["Rabbit:StockQueue:ConnectionString"];
+            var queueName = _configuration["Rabbit:StockQueue:QueueName"];
+            var durable = Convert.ToBoolean(_configuration["Rabbit:StockQueue:Durable"]);
+
+            var message = new { StockCode = stockMessage.StockCode, StockValue = stockMessage.StockValue, Caller = stockMessage.Caller };
+            var factory = new ConnectionFactory()
             {
-                var connectionString = _configuration["Rabbit:StockQueue:ConnectionString"];
-                var queueName = _configuration["Rabbit:StockQueue:QueueName"];
-                var durable = Convert.ToBoolean(_configuration["Rabbit:StockQueue:Durable"]);
+                Uri = new Uri(connectionString)
+            };
+            using var connection = factory.CreateConnection();
+            using var channel = connection.CreateModel();
 
-                var message = new { StockCode = stockMessage.StockCode, StockValue = stockMessage.StockValue, Caller = stockMessage.Caller };
-                var factory = new ConnectionFactory()
-                {
-                    Uri = new Uri(connectionString)
-                };
-                using var connection = factory.CreateConnection();
-                using var channel = connection.CreateModel();
+            channel.QueueDeclare(queue: queueName,
+                durable: durable,
+                exclusive: false,
+                autoDelete: false,
+                arguments: null);
 
-                channel.QueueDeclare(queue: queueName,
-                                     durable: durable,
-                                     exclusive: false,
-                                     autoDelete: false,
-                                     arguments: null);
-
-                channel.BasicPublish(exchange: "",
-                                     routingKey: queueName,
-                                     basicProperties: null,
-                                     body: Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message)));
-            }
-            catch (Exception e)
-            {
-
-                //throw;
-            }
+            channel.BasicPublish(exchange: "",
+                routingKey: queueName,
+                basicProperties: null,
+                body: Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message)));
         }
     }
 }

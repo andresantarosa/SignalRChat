@@ -15,18 +15,12 @@ namespace SignalRChat.Service.Chat
 
     public class ChatService : IChatService
     {
-        private readonly IPostRepository _postRepository;
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IConfiguration _configuration;
         private readonly IMessaging _messaging;
-        public ChatService(IPostRepository postRepository,
-                           IHttpClientFactory httpClientFactory,
-                           IConfiguration configuration,
+        public ChatService(IHttpClientFactory httpClientFactory,
                            IMessaging messaging)
         {
-            _postRepository = postRepository;
             _httpClientFactory = httpClientFactory;
-            _configuration = configuration;
             _messaging = messaging;
         }
 

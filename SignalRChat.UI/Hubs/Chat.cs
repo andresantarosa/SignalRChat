@@ -13,16 +13,13 @@ namespace SignalRChat.UI.Hubs
         private readonly IChatUsersService _chatUsersService;
         private readonly IChatConfigurationService _configuration;
         private readonly IChatService _chatService;
-        private readonly IUnitOfWork _unitOfWork;
         public Chat(IChatUsersService chatUsersService,
                     IChatConfigurationService configuration,
-                    IChatService chatService,
-                    IUnitOfWork unitOfWork)
+                    IChatService chatService)
         {
             _chatUsersService = chatUsersService;
             _configuration = configuration;
             _chatService = chatService;
-            _unitOfWork = unitOfWork;
         }
 
         public override async Task OnConnectedAsync()
